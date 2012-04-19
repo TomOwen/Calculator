@@ -18,7 +18,7 @@
 @synthesize display = _display;
 @synthesize userIsInTheMiddleOfEnteringANumber;
 @synthesize brain = _brain;
-
+// first commit
 - (CalculatorBrain *) brain 
 {
     if (!_brain) _brain = [[CalculatorBrain alloc] init];
