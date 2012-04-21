@@ -47,12 +47,14 @@
     } else if ([operation isEqualToString:@"*"]) {
         result = [self popOperand] * [self popOperand];
     } else if ([operation isEqualToString:@"-"]) {
-        result = [self popOperand] - [self popOperand];
+        double pop1 = [self popOperand];
+        double pop2 = [self popOperand];
+        result = pop2 - pop1;
     } else if ([operation isEqualToString:@"/"]) {
         double operand1 = [self popOperand];
         double operand2 = [self popOperand];
-        if (operand2) {
-        result = operand1/operand2;
+        if (operand1) {
+        result = operand2/operand1;
         }
     }
     [self pushOperand:result];

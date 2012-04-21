@@ -15,6 +15,7 @@
 @end
 
 @implementation CalculatorViewController
+@synthesize historyLabel = _historyLabel;
 @synthesize display = _display;
 @synthesize userIsInTheMiddleOfEnteringANumber;
 @synthesize brain = _brain;
@@ -48,5 +49,9 @@
 - (IBAction)enterPressed {
     [self.brain pushOperand:[self.display.text doubleValue]];
     self.userIsInTheMiddleOfEnteringANumber = NO;
+}
+- (void)viewDidUnload {
+    [self setHistoryLabel:nil];
+    [super viewDidUnload];
 }
 @end

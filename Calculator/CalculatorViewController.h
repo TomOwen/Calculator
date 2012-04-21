@@ -12,5 +12,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *display;
 - (IBAction)operationPressed:(UIButton *)sender;
 - (IBAction)enterPressed;
+@property (weak, nonatomic) IBOutlet UILabel *historyLabel;
 
 @end
