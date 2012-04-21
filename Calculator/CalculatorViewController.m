@@ -28,6 +28,12 @@
 
 - (IBAction)digitPressed:(UIButton *)sender {
     NSString *digit = [sender currentTitle];
+    // only allow a single . to be entered
+    if ([digit isEqualToString:@"."]) {
+        // check display if more than one entered beep
+        NSRange range = [self.display.text rangeOfString:@"."];
+        if (range.length > 0) return;
+    }
     if (userIsInTheMiddleOfEnteringANumber) {
         self.display.text = [self.display.text stringByAppendingString:digit];
     } else {
