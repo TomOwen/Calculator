@@ -29,7 +29,7 @@
 - (void) pushOperand:(double)operand 
 {
     NSNumber *operandObject = [NSNumber numberWithDouble:operand];
-    [self.operandStack addObject:operandObject];    
+    [self.operandStack addObject:operandObject];
 }
 - (double) popOperand 
 // private method

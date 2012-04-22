@@ -49,15 +49,22 @@
     NSString *operation = sender.currentTitle;
     double result = [self.brain performOperation:operation];
     self.display.text = [NSString stringWithFormat:@"%g",result];
-    
+    // log to historylabel
+    self.historyLabel.text = [self.historyLabel.text stringByAppendingFormat:@"%@ ",operation];
 }
 
 - (IBAction)enterPressed {
     [self.brain pushOperand:[self.display.text doubleValue]];
+    self.historyLabel.text = [self.historyLabel.text stringByAppendingFormat:@"%@ ",self.display.text];
     self.userIsInTheMiddleOfEnteringANumber = NO;
 }
 - (void)viewDidUnload {
     [self setHistoryLabel:nil];
     [super viewDidUnload];
+}
+- (IBAction)clearBrain {
+    self.historyLabel.text = @"";
+    self.display.text = @"";
+    self.brain = Nil;
 }
 @end

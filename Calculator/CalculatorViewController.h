@@ -14,5 +14,6 @@
 - (IBAction)digitPressed:(UIButton *)sender;
 - (IBAction)enterPressed;
 @property (weak, nonatomic) IBOutlet UILabel *historyLabel;
+- (IBAction)clearBrain;
 
 @end
