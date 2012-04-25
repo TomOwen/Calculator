@@ -12,6 +12,7 @@
 - (void) pushOperand: (double)operand;
 - (double) performOperation: (NSString *)operation;
 - (void)pushVariable:(NSString *)variable;
+- (void) clearTopOfProgramStack;
 @property (readonly) id program;
 + (double) runProgram:(id)program;
 // new version for the intelligent calculator with variables

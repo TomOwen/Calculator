@@ -25,7 +25,9 @@
     }
     return _programStack;
 }
-
+- (void) clearTopOfProgramStack{
+    [self.programStack removeLastObject];
+}
 - (void) pushOperand:(double)operand 
 {
     NSNumber *programStackEntered = [NSNumber numberWithDouble:operand];
@@ -113,7 +115,7 @@
             NSString *second=[CalculatorBrain descriptionOfTopOfStack:stack];
             NSString *first=[CalculatorBrain descriptionOfTopOfStack:stack];
             description=[NSString stringWithFormat:@"( %@ ) %@ %@",first,topOfStack,second];
-            NSLog(@"2operand description = '%@'",description);
+            //NSLog(@"2operand description = '%@'",description);
             description=[CalculatorBrain surpressParienthese: description];  //only two operand operation needs to surpress 
         }
         if ([[CalculatorBrain typeOfString:topOfStack] isEqualToString:@"singleOperandOperation"]) {

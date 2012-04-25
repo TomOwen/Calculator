@@ -33,6 +33,17 @@
     if (!_testVariableValues) _testVariableValues = [[NSDictionary alloc]init];
     return _testVariableValues;
 }
+- (IBAction)undoPressed:(UIButton *)sender {
+    if (self.userIsInTheMiddleOfEnteringANumber && self.display.text.length>1) {
+        //remove the last digit from number
+        self.display.text=[self.display.text substringToIndex:self.display.text.length-1];
+    }else {
+        //clear top of stack and update display
+        [self.brain clearTopOfProgramStack];
+        self.display.text=@"0";
+        self.historyLabel.text=[[CalculatorBrain class] descriptionOfProgram:self.brain.program];
+    }
+}
 - (IBAction)digitPressed:(UIButton *)sender {
     NSString *digit = [sender currentTitle];
     // only allow a single . to be entered
@@ -59,7 +70,7 @@
     self.display.text = [NSString stringWithFormat:@"%g",result];
     // log to historylabel
     self.historyLabel.text = [self.historyLabel.text stringByAppendingFormat:@"%@ ",operation];
-        NSLog(@"operation pressed history label = %@",self.historyLabel.text);
+       // NSLog(@"operation pressed history label = %@",self.historyLabel.text);
     }
 }
 
