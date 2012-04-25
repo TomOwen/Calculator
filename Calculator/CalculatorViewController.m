@@ -16,6 +16,7 @@
 @end
 
 @implementation CalculatorViewController
+@synthesize variablesDisplay = _variablesDisplay;
 @synthesize historyLabel = _historyLabel;
 @synthesize display = _display;
 @synthesize userIsInTheMiddleOfEnteringANumber;
@@ -52,27 +53,37 @@
     if (userIsInTheMiddleOfEnteringANumber) {
         [self enterPressed];
     }
+    if ([self.brain.program count]>0) {//ignore user's pressing operation at the beginning
     NSString *operation = sender.currentTitle;
     double result = [self.brain performOperation:operation];
     self.display.text = [NSString stringWithFormat:@"%g",result];
     // log to historylabel
     self.historyLabel.text = [self.historyLabel.text stringByAppendingFormat:@"%@ ",operation];
+        NSLog(@"operation pressed history label = %@",self.historyLabel.text);
+    }
 }
 
 - (IBAction)enterPressed {
+    //NSLog(@"begin enter pressed history label = %@",self.historyLabel.text);
     [self.brain pushOperand:[self.display.text doubleValue]];
+    //NSLog(@"after push operand label = %@",self.historyLabel.text);
     self.historyLabel.text = [self.historyLabel.text stringByAppendingFormat:@"%@ ",self.display.text];
     self.userIsInTheMiddleOfEnteringANumber = NO;
+    self.historyLabel.text=[[CalculatorBrain class] descriptionOfProgram:self.brain.program];
+    //NSLog(@"end enter pressed history label = %@",self.historyLabel.text);
 }
 - (void)viewDidUnload {
     [self setHistoryLabel:nil];
     [self setTestVariableValues:nil];
+    [self setVariablesDisplay:nil];
     [super viewDidUnload];
 }
 - (IBAction)clearBrain {
     self.historyLabel.text = @"";
+    self.variablesDisplay.text = @"";
     self.display.text = @"";
     self.brain = Nil;
+    self.userIsInTheMiddleOfEnteringANumber = NO;
 }
 - (IBAction)variablePressed:(UIButton *)sender {
     if (self.userIsInTheMiddleOfEnteringANumber) {
@@ -96,6 +107,33 @@
     if ([sender.currentTitle isEqualToString:@"Test 3"]) {
         self.testVariableValues=nil;
     }
+    
+    //display discription of program
+    self.historyLabel.text=[[CalculatorBrain class] descriptionOfProgram:self.brain.program];
+    
+    //display variable values
+    self.variablesDisplay.text=nil;
+    NSSet *variablesUsedSet=[CalculatorBrain variablesUsedInProgram:self.brain.program];
+    NSArray *variablesUsedArray = [variablesUsedSet allObjects];
+    if ([self.testVariableValues count]>0) {
+        for (int i=0; i<[variablesUsedArray count]; i++) {
+            if (!self.variablesDisplay.text) {
+                self.variablesDisplay.text=[variablesUsedArray objectAtIndex:i];
+                self.variablesDisplay.text=[self.variablesDisplay.text stringByAppendingString:@"="];
+                self.variablesDisplay.text=[self.variablesDisplay.text stringByAppendingString:[self.testVariableValues valueForKey:[variablesUsedArray objectAtIndex:i]]];
+                self.variablesDisplay.text=[self.variablesDisplay.text stringByAppendingString:@"  "];
+            }
+            else {
+                self.variablesDisplay.text=[self.variablesDisplay.text stringByAppendingString:[variablesUsedArray objectAtIndex:i]];
+                self.variablesDisplay.text=[self.variablesDisplay.text stringByAppendingString:@"="];
+                self.variablesDisplay.text=[self.variablesDisplay.text stringByAppendingString:[self.testVariableValues valueForKey:[variablesUsedArray objectAtIndex:i]]];
+                self.variablesDisplay.text=[self.variablesDisplay.text stringByAppendingString:@"  "];
+            }
+        }
+    }else {
+        self.variablesDisplay.text=nil;
+    }
+    
     //run program
     double result=[[self.brain class] runProgram:self.brain.program usingVariableValues:self.testVariableValues];
     self.display.text = [NSString stringWithFormat:@"%g",result];

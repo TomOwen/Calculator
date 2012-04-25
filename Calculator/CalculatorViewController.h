@@ -15,5 +15,6 @@
 - (IBAction)enterPressed;
 @property (weak, nonatomic) IBOutlet UILabel *historyLabel;
 - (IBAction)clearBrain;
+@property (weak, nonatomic) IBOutlet UILabel *variablesDisplay;
 
 @end

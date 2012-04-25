@@ -472,26 +472,13 @@
                         <outlet property="display" destination="7H1-OS-VPr" id="XgI-hu-jpU"/>
                         <outlet property="historyLabel" destination="Vlu-65-RXi" id="YRS-xo-Jgy"/>
                         <outlet property="testVariableValues" destination="30D-JD-8g7" id="iWm-id-OSD"/>
+                        <outlet property="variablesDisplay" destination="30D-JD-8g7" id="2Kq-Rv-0jp"/>
                     </connections>
                 </viewController>
             </objects>
             <point key="canvasLocation" x="263" y="184"/>
         </scene>
     </scenes>
-    <classes>
-        <class className="CalculatorViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/CalculatorViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="clearBrain"/>
-                <relationship kind="action" name="digitPressed:" candidateClass="UIButton"/>
-                <relationship kind="action" name="enterPressed"/>
-                <relationship kind="action" name="operationPressed:" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="display" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="historyLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="testVariableValues" candidateClass="UILabel"/>
-            </relationships>
-        </class>
-    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>
