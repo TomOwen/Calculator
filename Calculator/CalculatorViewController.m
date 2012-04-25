@@ -12,7 +12,7 @@
 @interface CalculatorViewController ()
 @property (nonatomic) BOOL userIsInTheMiddleOfEnteringANumber;
 @property (nonatomic, strong) CalculatorBrain *brain;
-@property (strong, nonatomic) IBOutlet UILabel *testVariableValues;
+@property (nonatomic, strong) NSDictionary *testVariableValues;
 @end
 
 @implementation CalculatorViewController
@@ -27,7 +27,11 @@
     if (!_brain) _brain = [[CalculatorBrain alloc] init];
     return _brain;
 }
-
+// lazy instantiation with setter
+- (NSDictionary *) testVariableValues {
+    if (!_testVariableValues) _testVariableValues = [[NSDictionary alloc]init];
+    return _testVariableValues;
+}
 - (IBAction)digitPressed:(UIButton *)sender {
     NSString *digit = [sender currentTitle];
     // only allow a single . to be entered
@@ -70,8 +74,30 @@
     self.display.text = @"";
     self.brain = Nil;
 }
-- (IBAction)testPressed:(UIButton *)sender {
-}
 - (IBAction)variablePressed:(UIButton *)sender {
+    if (self.userIsInTheMiddleOfEnteringANumber) {
+        [self enterPressed];
+    }
+    [self.brain pushVariable:sender.currentTitle];
+    self.display.text = sender.currentTitle;
+    
+}
+- (IBAction)testPressed:(UIButton *)sender {
+    //the next line is to test if NSSet variablesSetUsedInProgram works
+    //NSLog(@"NSSet is: %@",[CalculatorBrain variablesUsedInProgram:self.brain.program]);
+    
+    //set testVariableValues to some preset testing values
+    if ([sender.currentTitle isEqualToString:@"Test 1"]) {
+        self.testVariableValues=[NSDictionary dictionaryWithObjectsAndKeys:@"3",@"a",@"4",@"b",@"10",@"x", nil];
+    }
+    if ([sender.currentTitle isEqualToString:@"Test 2"]) {
+        self.testVariableValues=[NSDictionary dictionaryWithObjectsAndKeys:@"-3",@"a",@"-4",@"b",@"-10",@"x", nil];
+    }
+    if ([sender.currentTitle isEqualToString:@"Test 3"]) {
+        self.testVariableValues=nil;
+    }
+    //run program
+    double result=[[self.brain class] runProgram:self.brain.program usingVariableValues:self.testVariableValues];
+    self.display.text = [NSString stringWithFormat:@"%g",result];
 }
 @end
