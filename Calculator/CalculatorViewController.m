@@ -12,6 +12,7 @@
 @interface CalculatorViewController ()
 @property (nonatomic) BOOL userIsInTheMiddleOfEnteringANumber;
 @property (nonatomic, strong) CalculatorBrain *brain;
+@property (strong, nonatomic) IBOutlet UILabel *testVariableValues;
 @end
 
 @implementation CalculatorViewController
@@ -19,6 +20,7 @@
 @synthesize display = _display;
 @synthesize userIsInTheMiddleOfEnteringANumber;
 @synthesize brain = _brain;
+@synthesize testVariableValues = _testVariableValues;
 // first commit .......
 - (CalculatorBrain *) brain 
 {
@@ -60,11 +62,16 @@
 }
 - (void)viewDidUnload {
     [self setHistoryLabel:nil];
+    [self setTestVariableValues:nil];
     [super viewDidUnload];
 }
 - (IBAction)clearBrain {
     self.historyLabel.text = @"";
     self.display.text = @"";
     self.brain = Nil;
+}
+- (IBAction)testPressed:(UIButton *)sender {
+}
+- (IBAction)variablePressed:(UIButton *)sender {
 }
 @end

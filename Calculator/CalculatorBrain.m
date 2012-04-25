@@ -28,8 +28,8 @@
 
 - (void) pushOperand:(double)operand 
 {
-    NSNumber *programStack = [NSNumber numberWithDouble:operand];
-    [self.programStack addObject:programStack];
+    NSNumber *programStackEntered = [NSNumber numberWithDouble:operand];
+    [self.programStack addObject:programStackEntered];
 }
 - (double) performOperation:(NSString *)operation 
 {
